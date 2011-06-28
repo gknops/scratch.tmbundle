@@ -17,15 +17,28 @@ scratchdir += "/" if scratchdir[-1] != "/"
 
 suffix = ENV["TM_FILEPATH"] ? File.extname(ENV["TM_FILEPATH"]) : ".tmp"
 prefix = "textmate_scratch_#{Time.now.strftime("%F.%H.%M.%S")}"
-
-path = '%s/%s_%s%s' % [scratchdir, prefix, rand(1679615).to_s(36), suffix]
+randVal = rand(1679615).to_s(36)
+path = '%s/%s_%s%s' % [scratchdir, prefix, randVal, suffix]
 
 File.open(path, File::RDWR|File::CREAT|File::EXCL, 0600) do
 	|io| io &lt;&lt; $stdin.read
 end
 
-`#{e_sh ENV["TM_SUPPORT_PATH"]}/bin/mate #{e_sh(path)}`
+if ENV["TM_SELECTED_FILE"]
+	
+	line = ENV["TM_INPUT_START_LINE"] ? ENV["TM_INPUT_START_LINE"] : ENV["TM_LINE_NUMBER"]
 
+	prefixBM = "BM_" + prefix
+	bmpath = '%s/%s_%s%s' % [scratchdir, prefixBM, randVal, suffix]
+	efn=e_url ENV["TM_SELECTED_FILE"]
+	url="txmt://open/?url=file://" + efn + "&amp;line=" + line
+	href="&lt;a href=\"" + url + "\"&gt;" + ENV["TM_FILENAME"] + "&lt;/a&gt;"
+	File.open(bmpath,File::RDWR|File::CREAT|File::EXCL,0600) do |bm|
+		bm.puts href
+	end
+end
+
+exec '"$TM_BUNDLE_SUPPORT/bin/scratch2rss.rb"'
 
 </string>
 	<key>fallbackInput</key>
@@ -33,11 +46,11 @@ end
 	<key>input</key>
 	<string>selection</string>
 	<key>keyEquivalent</key>
-	<string>^~@c</string>
+	<string>@C</string>
 	<key>name</key>
 	<string>Scratch from Current Selection / Line</string>
 	<key>output</key>
-	<string>showAsTooltip</string>
+	<string>showAsHTML</string>
 	<key>uuid</key>
 	<string>4810FDD1-6B51-4C92-91A9-52E4ABA4639C</string>
 </dict>

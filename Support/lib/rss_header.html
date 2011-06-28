@@ -39,6 +39,9 @@
         }
         function deleteScratch (f) {
             TextMate.system("rm '"+f+"'", function (task) { });
+						var bmf=f.replace("textmate_scratch_","BM_textmate_scratch_");
+            TextMate.system("rm '"+bmf+"'", function (task) { });
+
             document.getElementById(f).className="hidden";
             incrementCounts(-1,-1);
             sCountsDiv = sCountsDiv - 1;

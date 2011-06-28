@@ -38,6 +38,12 @@ files.reverse.each do |path|
   articlelocaldate = date.to_f
   articlesorttitle = author
   articlesortid = cnt
+	
+	bmpath = File.dirname(path) + "/BM_" + File.basename(path)
+	if FileTest.exist? ( bmpath )
+		author = IO.read(bmpath)
+	end
+	
   summary = File.open(path).readline.gsub("&","&amp;").gsub(">","&gt;").gsub("<","&lt;")
   puts eval('"' + entry + '"')
   File.readlines(path).each do |line|
