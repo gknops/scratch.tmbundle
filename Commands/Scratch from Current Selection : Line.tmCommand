@@ -24,13 +24,13 @@ File.open(path, File::RDWR|File::CREAT|File::EXCL, 0600) do
 	|io| io &lt;&lt; $stdin.read
 end
 
-if ENV["TM_SELECTED_FILE"]
+if ENV["TM_FILEPATH"]
 	
 	line = ENV["TM_INPUT_START_LINE"] ? ENV["TM_INPUT_START_LINE"] : ENV["TM_LINE_NUMBER"]
 
 	prefixBM = "BM_" + prefix
 	bmpath = '%s/%s_%s%s' % [scratchdir, prefixBM, randVal, suffix]
-	efn=e_url ENV["TM_SELECTED_FILE"]
+	efn=e_url ENV["TM_FILEPATH"]
 	url="txmt://open/?url=file://" + efn + "&amp;line=" + line
 	href="&lt;a href=\"" + url + "\"&gt;" + ENV["TM_FILENAME"] + "&lt;/a&gt;"
 	File.open(bmpath,File::RDWR|File::CREAT|File::EXCL,0600) do |bm|
@@ -45,13 +45,21 @@ exec '"$TM_BUNDLE_SUPPORT/bin/scratch2rss.rb"'
 	<string>line</string>
 	<key>input</key>
 	<string>selection</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>@C</string>
 	<key>name</key>
 	<string>Scratch from Current Selection / Line</string>
-	<key>output</key>
-	<string>showAsHTML</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
 	<key>uuid</key>
 	<string>4810FDD1-6B51-4C92-91A9-52E4ABA4639C</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>
