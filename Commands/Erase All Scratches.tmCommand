@@ -8,8 +8,17 @@
 	<string>#!/usr/bin/env ruby
 
 require "tmpdir"
+require 'ftools'
 
-scratchdir = ENV["TM_SCRATCH_DIRECTORY"] || Dir::tmpdir
+scratchdir = ENV["TM_SCRATCH_DIRECTORY"]
+if !scratchdir
+  if ENV["TM_PROJECT_DIRECTORY"]
+    scratchdir = ENV["TM_PROJECT_DIRECTORY"] + "/.tm_tmp/scratch"
+    File.makedirs(scratchdir)
+  else
+    scratchdir = Dir::tmpdir
+  end
+end
 scratchdir &lt;&lt; "/" unless scratchdir[-1] == "/"
 
 Dir.glob("#{scratchdir}textmate_scratch_*").each do |path|
@@ -17,11 +26,19 @@ Dir.glob("#{scratchdir}textmate_scratch_*").each do |path|
 end</string>
 	<key>input</key>
 	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>name</key>
 	<string>Erase All Scratches</string>
-	<key>output</key>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
 	<string>discard</string>
 	<key>uuid</key>
 	<string>3CBA6A15-D6FC-4CCB-9CEF-B9576CB2CA06</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

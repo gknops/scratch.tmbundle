@@ -2,8 +2,17 @@
 
 require "tmpdir"
 require ENV["TM_SUPPORT_PATH"] + "/lib/escape"
+require 'ftools'
 
-scratchdir = ENV["TM_SCRATCH_DIRECTORY"] || Dir::tmpdir
+scratchdir = ENV["TM_SCRATCH_DIRECTORY"]
+if !scratchdir
+  if ENV["TM_PROJECT_DIRECTORY"]
+    scratchdir = ENV["TM_PROJECT_DIRECTORY"] + "/.tm_tmp/scratch"
+    File.makedirs(scratchdir)
+  else
+    scratchdir = Dir::tmpdir
+  end
+end
 rssdir = ENV["TM_BUNDLE_SUPPORT"] + "/lib"
 scratchdir += "/" if scratchdir[-1] != "/"
 auxpath = rssdir + "/PubSubAgent/"

@@ -8,11 +8,20 @@
 	<string>#!/usr/bin/env ruby
 
 require 'tmpdir'
+require 'ftools'
 
 require ENV["TM_SUPPORT_PATH"] + "/lib/tm/tempfile"
 require ENV["TM_SUPPORT_PATH"] + "/lib/escape"
 
-scratchdir = ENV["TM_SCRATCH_DIRECTORY"] || Dir::tmpdir
+scratchdir = ENV["TM_SCRATCH_DIRECTORY"]
+if !scratchdir
+  if ENV["TM_PROJECT_DIRECTORY"]
+    scratchdir = ENV["TM_PROJECT_DIRECTORY"] + "/.tm_tmp/scratch"
+    File.makedirs(scratchdir)
+  else
+    scratchdir = Dir::tmpdir
+  end
+end
 scratchdir += "/" if scratchdir[-1] != "/"
 
 suffix = ENV["TM_FILEPATH"] ? File.extname(ENV["TM_FILEPATH"]) : ".tmp"
