@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby
 
 require "tmpdir"
 require ENV["TM_SUPPORT_PATH"] + "/lib/escape"
@@ -49,7 +49,7 @@ files.reverse.each do |path|
   articlesortid = cnt
 	
 	bmpath = File.dirname(path) + "/BM_" + File.basename(path)
-	if FileTest.exist? ( bmpath )
+	if FileTest.exist?( bmpath )
 		author = IO.read(bmpath)
 	end
 	
