@@ -256,10 +256,12 @@ a.ljtag {
     line-height: 130%;
     padding: 4px 4px 0px 4px;
     overflow: hidden;
-    display: -khtml-box;
+    display: block;    
+	
+/*    display: -khtml-box;
     -khtml-box-orient: vertical;
     -apple-line-clamp: 100%;    
-}
+*/}
 
 .apple-rss-content > div {
     overflow: hidden;
@@ -291,13 +293,21 @@ div.apple-rss-article {
     text-decoration: none;
 }
 
-.apple-rss-author, .apple-rss-subject, .apple-rss-summary, .apple-rss-source {
+.apple-rss-subject, .apple-rss-summary, .apple-rss-source {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: intrinsic;
     width: 0px;
     min-width: 0px;
     margin-right: 1em;
+}
+
+.apple-rss-author {
+    width: 200px;
+	padding-top: 4px;
+}
+.apple-rss-date {
+	padding-top: 4px;
 }
 
 .apple-rss-author, .apple-rss-date, .apple-rss-source {
