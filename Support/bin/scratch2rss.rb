@@ -1,14 +1,14 @@
-#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby
+#!/usr/bin/env ruby
 
 require "tmpdir"
 require ENV["TM_SUPPORT_PATH"] + "/lib/escape"
-require 'ftools'
+require 'fileutils'
 
 scratchdir = ENV["TM_SCRATCH_DIRECTORY"]
 if !scratchdir
   if ENV["TM_PROJECT_DIRECTORY"]
     scratchdir = ENV["TM_PROJECT_DIRECTORY"] + "/.tm_tmp/scratch"
-    File.makedirs(scratchdir)
+    FileUtils::mkdir_p scratchdir
   else
     scratchdir = Dir::tmpdir
   end
